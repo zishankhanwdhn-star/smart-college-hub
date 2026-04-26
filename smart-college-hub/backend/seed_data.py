@@ -123,17 +123,20 @@ def seed():
     try:
         # Admin user
         if not db.query(models.User).filter(models.User.email == os.getenv("ADMIN_EMAIL", "admin@gpcwaidhan.ac.in")).first():
-            admin = models.User(
-                full_name="Admin",
-                email=os.getenv("ADMIN_EMAIL", "admin@gpcwaidhan.ac.in"),
-                hashed_password=get_password_hash(os.getenv("ADMIN_PASSWORD", "Admin@123")),
-                role=models.UserRole.admin,
-                is_active=True,
-            )
-            db.add(admin)
-            db.commit()
-            print(f"[+] Admin created: {admin.email}")
+      admin_password = os.getenv("ADMIN_PASSWORD") or "Admin@123"
+admin_password = admin_password[:72]
 
+admin = models.User(
+    full_name="Admin",
+    email=os.getenv("ADMIN_EMAIL", "admin@gpcwaidhan.ac.in"),
+    hashed_password=get_password_hash(admin_password),
+    role=models.UserRole.admin,
+    is_active=True,
+)
+
+db.add(admin)
+db.commit()
+print(f"[+] Admin created: {admin.email}")
         # Branches
         for branch_data in BRANCHES:
             if not db.query(models.Branch).filter(models.Branch.code == branch_data["code"]).first():

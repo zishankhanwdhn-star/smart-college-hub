@@ -1,0 +1,12 @@
+{
+  "name": "smart-college-hub-root",
+  "private": true,
+  "scripts": {
+    "setup:backend": "cd backend && python -m venv venv && pip install -r requirements.txt && python seed_data.py",
+    "setup:frontend": "cd frontend && npm install",
+    "dev:backend": "cd backend && uvicorn main:app --reload --port 8000",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "seed": "cd backend && python seed_data.py"
+  }
+}

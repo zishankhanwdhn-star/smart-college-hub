@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const BASE = '/api'
+// 🔥 FIXED BASE URL (IMPORTANT)
+const BASE = 'https://smart-college-hub-production.up.railway.app/api'
 
 const api = axios.create({ baseURL: BASE })
 
